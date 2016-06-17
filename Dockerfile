@@ -36,9 +36,6 @@ RUN sed -i "s/connectionString=.*/connectionString=\"$CONN_STRING\" providerName
 ADD mysqld.conf /etc/supervisor/conf.d/
 RUN mkdir -p "$LOG_DIR/documentserver/CoAuthoringService" "$LOG_DIR/documentserver/DocService" "$LOG_DIR/documentserver/FileConverterService" "$LOG_DIR/documentserver/LibreOfficeService" "$LOG_DIR/documentserver/SpellCheckerService" "$LOG_DIR/documentserver/WatchDogService" "$APP_DIR/documentserver/App_Data" "$DIR/Data" && chown onlyoffice:onlyoffice -R "$DIR" && chown onlyoffice:onlyoffice -R "$LOG_DIR" && chown onlyoffice:onlyoffice -R "$APP_DIR"
 RUN "$DIR/documentserver/Tools/AllFontsGen" "/usr/share/fonts" "$DIR/documentserver/DocService/OfficeWeb/sdk/Common/AllFonts.js" "$DIR/documentserver/DocService/OfficeWeb/sdk/Common/Images" "$DIR/documentserver/FileConverterService/Bin/font_selection.bin"
-ADD documentserver_mysql_backup.tgz /root/
-RUN ls /root
-RUN tar zxf /root/documentserver_mysql_backup.tgz --absolute-names
 RUN mozroots --import --sync --machine --quiet
 RUN mkdir -p /etc/mono/registry/LocalMachine && mkdir -p /usr/share/.mono/keypairs && rm -f /etc/nginx/sites-enabled/default
 
